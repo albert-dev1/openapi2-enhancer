@@ -1,0 +1,1867 @@
+openapi: 3.0.0
+paths:
+  "/node/page/{entity}":
+    get:
+      summary: View (Content - Basic page)
+      description: <em class="placeholder"><a
+        href="http://jsonapi.org/format/#fetching">Individual endpoint</a></em>
+        for the node--page resource type. The individual endpoint contains a <em
+        class="placeholder"><a
+        href="http://jsonapi.org/format/#document-resource-objects">resource
+        object</a></em> with the data for a particular resource or entity.
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/node--page"
+      parameters:
+        - in: query
+          name: resourceVersion
+          description: The JSON:API module exposes entity revisions as resource versions.
+            <a
+            href="https://www.drupal.org/docs/8/modules/jsonapi/revisions">Learn
+            more in the documentation</a>.
+          required: false
+          schema:
+            type: string
+        - in: path
+          name: entity
+          description: The uuid of the node page
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: include
+          description: include relation data
+          required: false
+          schema:
+            type: string
+      tags:
+        - Content - Basic page
+  /paragraph/hero:
+    get:
+      summary: List (Paragraph - Hero)
+      description: <em class="placeholder"><a
+        href="http://jsonapi.org/format/#fetching">Collection endpoint</a></em>
+        for the paragraph--hero resource type. Collections are a list of <em
+        class="placeholder"><a
+        href="http://jsonapi.org/format/#document-resource-objects">resource
+        objects</a></em> for a particular resource type. In the JSON API module
+        for Drupal all collections are homogeneous, which means that all the
+        items in a collection are of the same type.
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/vnd.api+json:
+              schema:
+                description: Describes the payload for 'paragraph' entities of the 'hero'
+                  bundle.
+                additionalProperties: true
+                title: paragraph:hero Schema
+                type: object
+                required:
+                  - data
+                properties:
+                  jsonapi:
+                    description: An object describing the server's implementation
+                    additionalProperties: false
+                    type: object
+                    properties:
+                      meta:
+                        description: Non-standard meta-information that can not be represented as an
+                          attribute or relationship.
+                        additionalProperties: true
+                        type: object
+                      version:
+                        type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/paragraph--hero/properties/data"
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an
+                      attribute or relationship.
+                    additionalProperties: true
+                    type: object
+                  links:
+                    additionalProperties:
+                      description: "A link **MUST** be represented as either: a string containing the
+                        link's URL or a link object . "
+                      type: object
+                      required:
+                        - href
+                      properties:
+                        meta:
+                          description: Non-standard meta-information that can not be represented as an
+                            attribute or relationship.
+                          additionalProperties: true
+                          type: object
+                        href:
+                          format: uri - reference
+                          description: "A string containing the link's URL . "
+                          type: string
+                    type: object
+      parameters:
+        - in: query
+          name: filter
+          description: The JSON:API module has some of the most robust and feature-rich
+            filtering features around. All of that power comes with a bit of a
+            learning curve though. <a
+            href="https://www.drupal.org/docs/8/modules/jsonapi/filtering">Learn
+            more in the documentation</a>.
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: sort
+          description: The JSON:API module allows you to sort collections based on
+            properties in the resource or in nested resources. <a
+            href="https://www.drupal.org/docs/8/modules/jsonapi/sorting">Learn
+            more in the documentation</a>.
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: page
+          description: Pagination can be a deceptively complex topic. It's easy to fall
+            into traps and not follow best-practices. <a
+            href="https://www.drupal.org/docs/8/modules/jsonapi/pagination">Learn
+            more in the documentation</a>.
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: include
+          description: 'Embed related entities in the response. For example: use a query
+            string like <code>?include=comments.author</code> to include all the
+            entities referenced by <code>comments</code> and all the entities
+            referenced by <code>author</code> on those entities!. <a
+            href="https://www.drupal.org/docs/8/modules/jsonapi/includes">Learn
+            more in the documentation</a>.'
+          required: false
+          schema:
+            type: string
+      tags:
+        - Paragraph - Hero
+  "/paragraph/text_media_box/{entity}/field_link":
+    get:
+      summary: "Related: field_link (Content - Basic page)"
+      description: <em class="placeholder"><a
+        href="http://jsonapi.org/format/#fetching">Related endpoint</a></em> for
+        the node--page resource type through the <em
+        class="placeholder">field_link</em> relationship. The related endpoint
+        contains a <em class="placeholder"><a
+        href="http://jsonapi.org/format/#document-resource-objects">resource
+        object</a></em> with the data for a particular related resource or
+        entity.
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/node--page"
+      parameters:
+        - in: path
+          name: entity
+          description: The uuid of the paragraph text_media_box
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: include
+          description: include relation data
+          required: false
+          schema:
+            type: string
+      tags:
+        - Paragraph - Text-Media-Box
+  "/paragraph/hero/{entity}":
+    get:
+      summary: View (Paragraph - Hero)
+      description: <em class="placeholder"><a
+        href="http://jsonapi.org/format/#fetching">Individual endpoint</a></em>
+        for the paragraph--hero resource type. The individual endpoint contains
+        a <em class="placeholder"><a
+        href="http://jsonapi.org/format/#document-resource-objects">resource
+        object</a></em> with the data for a particular resource or entity.
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/paragraph--hero"
+      parameters:
+        - in: path
+          name: entity
+          description: The uuid of the paragraph hero
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: include
+          description: include relation data
+          required: false
+          schema:
+            type: string
+      tags:
+        - Paragraph - Hero
+  "/paragraph/text_media_box/{entity}/relationships/paragraph_type":
+    get:
+      summary: "Relationship: paragraph_type (Paragraphs type)"
+      description: <em class="placeholder"><a
+        href="https://jsonapi.org/format/#fetching-relationships">Relationship
+        endpoint</a></em> for the paragraphs_type--paragraphs_type resource type
+        through the <em class="placeholder">paragraph_type</em> relationship.
+        The relationship endpoint contains a <em class="placeholder"><a
+        href="https://jsonapi.org/format/#document-resource-identifier-objects">resource
+        identifier object</a></em> with the data for a particular relationship.
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    description: The "type" and "id" to non-empty members.
+                    additionalProperties: false
+                    type: object
+                    required:
+                      - type
+                      - id
+                    properties:
+                      meta:
+                        description: Non-standard meta-information that can not be represented as an
+                          attribute or relationship.
+                        additionalProperties: true
+                        type: object
+                        properties: {}
+                      id:
+                        format: uuid
+                        title: Resource ID
+                        type: string
+                      type:
+                        title: Resource type name
+                        type: string
+                        enum:
+                          - paragraphs_type--paragraphs_type
+      parameters:
+        - in: path
+          name: entity
+          description: The uuid of the paragraph text_media_box
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: include
+          description: include relation data
+          required: false
+          schema:
+            type: string
+      tags:
+        - Paragraph - Text-Media-Box
+  "/node/page/{entity}/relationships/uid":
+    get:
+      summary: "Relationship: uid (User)"
+      description: <em class="placeholder"><a
+        href="https://jsonapi.org/format/#fetching-relationships">Relationship
+        endpoint</a></em> for the user--user resource type through the <em
+        class="placeholder">uid</em> relationship. The relationship endpoint
+        contains a <em class="placeholder"><a
+        href="https://jsonapi.org/format/#document-resource-identifier-objects">resource
+        identifier object</a></em> with the data for a particular relationship.
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    description: The "type" and "id" to non-empty members.
+                    additionalProperties: false
+                    type: object
+                    required:
+                      - type
+                      - id
+                    properties:
+                      meta:
+                        description: Non-standard meta-information that can not be represented as an
+                          attribute or relationship.
+                        additionalProperties: true
+                        type: object
+                        properties: {}
+                      id:
+                        format: uuid
+                        title: Resource ID
+                        type: string
+                      type:
+                        title: Resource type name
+                        type: string
+                        enum:
+                          - user--user
+      parameters:
+        - in: query
+          name: resourceVersion
+          description: The JSON:API module exposes entity revisions as resource versions.
+            <a
+            href="https://www.drupal.org/docs/8/modules/jsonapi/revisions">Learn
+            more in the documentation</a>.
+          required: false
+          schema:
+            type: string
+        - in: path
+          name: entity
+          description: The uuid of the node page
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: include
+          description: include relation data
+          required: false
+          schema:
+            type: string
+      tags:
+        - Content - Basic page
+  "/paragraph/hero/{entity}/field_link":
+    get:
+      summary: "Related: field_link (Content - Basic page)"
+      description: <em class="placeholder"><a
+        href="http://jsonapi.org/format/#fetching">Related endpoint</a></em> for
+        the node--page resource type through the <em
+        class="placeholder">field_link</em> relationship. The related endpoint
+        contains a <em class="placeholder"><a
+        href="http://jsonapi.org/format/#document-resource-objects">resource
+        object</a></em> with the data for a particular related resource or
+        entity.
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/node--page"
+      parameters:
+        - in: path
+          name: entity
+          description: The uuid of the paragraph hero
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: include
+          description: include relation data
+          required: false
+          schema:
+            type: string
+      tags:
+        - Paragraph - Hero
+  /paragraph/text_media_box:
+    get:
+      summary: List (Paragraph - Text-Media-Box)
+      description: <em class="placeholder"><a
+        href="http://jsonapi.org/format/#fetching">Collection endpoint</a></em>
+        for the paragraph--text_media_box resource type. Collections are a list
+        of <em class="placeholder"><a
+        href="http://jsonapi.org/format/#document-resource-objects">resource
+        objects</a></em> for a particular resource type. In the JSON API module
+        for Drupal all collections are homogeneous, which means that all the
+        items in a collection are of the same type.
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/vnd.api+json:
+              schema:
+                description: Describes the payload for 'paragraph' entities of the
+                  'text_media_box' bundle.
+                additionalProperties: true
+                title: paragraph:text_media_box Schema
+                type: object
+                required:
+                  - data
+                properties:
+                  jsonapi:
+                    description: An object describing the server's implementation
+                    additionalProperties: false
+                    type: object
+                    properties:
+                      meta:
+                        description: Non-standard meta-information that can not be represented as an
+                          attribute or relationship.
+                        additionalProperties: true
+                        type: object
+                      version:
+                        type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/paragraph--text_media_box/properties/data"
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an
+                      attribute or relationship.
+                    additionalProperties: true
+                    type: object
+                  links:
+                    additionalProperties:
+                      description: "A link **MUST** be represented as either: a string containing the
+                        link's URL or a link object . "
+                      type: object
+                      required:
+                        - href
+                      properties:
+                        meta:
+                          description: Non-standard meta-information that can not be represented as an
+                            attribute or relationship.
+                          additionalProperties: true
+                          type: object
+                        href:
+                          format: uri - reference
+                          description: "A string containing the link's URL . "
+                          type: string
+                    type: object
+      parameters:
+        - in: query
+          name: filter
+          description: The JSON:API module has some of the most robust and feature-rich
+            filtering features around. All of that power comes with a bit of a
+            learning curve though. <a
+            href="https://www.drupal.org/docs/8/modules/jsonapi/filtering">Learn
+            more in the documentation</a>.
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: sort
+          description: The JSON:API module allows you to sort collections based on
+            properties in the resource or in nested resources. <a
+            href="https://www.drupal.org/docs/8/modules/jsonapi/sorting">Learn
+            more in the documentation</a>.
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: page
+          description: Pagination can be a deceptively complex topic. It's easy to fall
+            into traps and not follow best-practices. <a
+            href="https://www.drupal.org/docs/8/modules/jsonapi/pagination">Learn
+            more in the documentation</a>.
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: include
+          description: 'Embed related entities in the response. For example: use a query
+            string like <code>?include=comments.author</code> to include all the
+            entities referenced by <code>comments</code> and all the entities
+            referenced by <code>author</code> on those entities!. <a
+            href="https://www.drupal.org/docs/8/modules/jsonapi/includes">Learn
+            more in the documentation</a>.'
+          required: false
+          schema:
+            type: string
+      tags:
+        - Paragraph - Text-Media-Box
+  "/node/page/{entity}/relationships/node_type":
+    get:
+      summary: "Relationship: node_type (Content type)"
+      description: <em class="placeholder"><a
+        href="https://jsonapi.org/format/#fetching-relationships">Relationship
+        endpoint</a></em> for the node_type--node_type resource type through the
+        <em class="placeholder">node_type</em> relationship. The relationship
+        endpoint contains a <em class="placeholder"><a
+        href="https://jsonapi.org/format/#document-resource-identifier-objects">resource
+        identifier object</a></em> with the data for a particular relationship.
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    description: The "type" and "id" to non-empty members.
+                    additionalProperties: false
+                    type: object
+                    required:
+                      - type
+                      - id
+                    properties:
+                      meta:
+                        description: Non-standard meta-information that can not be represented as an
+                          attribute or relationship.
+                        additionalProperties: true
+                        type: object
+                        properties: {}
+                      id:
+                        format: uuid
+                        title: Resource ID
+                        type: string
+                      type:
+                        title: Resource type name
+                        type: string
+                        enum:
+                          - node_type--node_type
+      parameters:
+        - in: query
+          name: resourceVersion
+          description: The JSON:API module exposes entity revisions as resource versions.
+            <a
+            href="https://www.drupal.org/docs/8/modules/jsonapi/revisions">Learn
+            more in the documentation</a>.
+          required: false
+          schema:
+            type: string
+        - in: path
+          name: entity
+          description: The uuid of the node page
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: include
+          description: include relation data
+          required: false
+          schema:
+            type: string
+      tags:
+        - Content - Basic page
+  "/node/page/{entity}/relationships/revision_uid":
+    get:
+      summary: "Relationship: revision_uid (User)"
+      description: <em class="placeholder"><a
+        href="https://jsonapi.org/format/#fetching-relationships">Relationship
+        endpoint</a></em> for the user--user resource type through the <em
+        class="placeholder">revision_uid</em> relationship. The relationship
+        endpoint contains a <em class="placeholder"><a
+        href="https://jsonapi.org/format/#document-resource-identifier-objects">resource
+        identifier object</a></em> with the data for a particular relationship.
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    description: The "type" and "id" to non-empty members.
+                    additionalProperties: false
+                    type: object
+                    required:
+                      - type
+                      - id
+                    properties:
+                      meta:
+                        description: Non-standard meta-information that can not be represented as an
+                          attribute or relationship.
+                        additionalProperties: true
+                        type: object
+                        properties: {}
+                      id:
+                        format: uuid
+                        title: Resource ID
+                        type: string
+                      type:
+                        title: Resource type name
+                        type: string
+                        enum:
+                          - user--user
+      parameters:
+        - in: query
+          name: resourceVersion
+          description: The JSON:API module exposes entity revisions as resource versions.
+            <a
+            href="https://www.drupal.org/docs/8/modules/jsonapi/revisions">Learn
+            more in the documentation</a>.
+          required: false
+          schema:
+            type: string
+        - in: path
+          name: entity
+          description: The uuid of the node page
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: include
+          description: include relation data
+          required: false
+          schema:
+            type: string
+      tags:
+        - Content - Basic page
+  "/node/page/{entity}/field_component":
+    get:
+      summary: "Related: field_component (Paragraph - Hero)"
+      description: <em class="placeholder"><a
+        href="http://jsonapi.org/format/#fetching">Related endpoint</a></em> for
+        the paragraph--hero resource type through the <em
+        class="placeholder">field_component</em> relationship. The related
+        endpoint contains a <em class="placeholder"><a
+        href="http://jsonapi.org/format/#document-resource-objects">resource
+        object</a></em> with the data for a particular related resource or
+        entity.
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/vnd.api+json:
+              schema:
+                description: Describes the payload for 'paragraph' entities of the 'hero'
+                  bundle.
+                additionalProperties: true
+                title: paragraph:hero Schema
+                type: object
+                required:
+                  - data
+                properties:
+                  jsonapi:
+                    description: An object describing the server's implementation
+                    additionalProperties: false
+                    type: object
+                    properties:
+                      meta:
+                        description: Non-standard meta-information that can not be represented as an
+                          attribute or relationship.
+                        additionalProperties: true
+                        type: object
+                      version:
+                        type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/paragraph--hero/properties/data"
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an
+                      attribute or relationship.
+                    additionalProperties: true
+                    type: object
+                  links:
+                    additionalProperties:
+                      description: "A link **MUST** be represented as either: a string containing the
+                        link's URL or a link object . "
+                      type: object
+                      required:
+                        - href
+                      properties:
+                        meta:
+                          description: Non-standard meta-information that can not be represented as an
+                            attribute or relationship.
+                          additionalProperties: true
+                          type: object
+                        href:
+                          format: uri - reference
+                          description: "A string containing the link's URL . "
+                          type: string
+                    type: object
+      parameters:
+        - in: query
+          name: resourceVersion
+          description: The JSON:API module exposes entity revisions as resource versions.
+            <a
+            href="https://www.drupal.org/docs/8/modules/jsonapi/revisions">Learn
+            more in the documentation</a>.
+          required: false
+          schema:
+            type: string
+        - in: path
+          name: entity
+          description: The uuid of the node page
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: include
+          description: include relation data
+          required: false
+          schema:
+            type: string
+      tags:
+        - Content - Basic page
+  "/node/page/{entity}/relationships/field_component":
+    get:
+      summary: "Relationship: field_component (Paragraph - Hero)"
+      description: <em class="placeholder"><a
+        href="https://jsonapi.org/format/#fetching-relationships">Relationship
+        endpoint</a></em> for the paragraph--hero resource type through the <em
+        class="placeholder">field_component</em> relationship. The relationship
+        endpoint contains a <em class="placeholder"><a
+        href="https://jsonapi.org/format/#document-resource-identifier-objects">resource
+        identifier object</a></em> with the data for a particular relationship.
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    uniqueItems: true
+                    description: An array of objects each containing \"type\" and \"id\" members for
+                      to-many relationships.
+                    type: array
+                    items:
+                      description: The "type" and "id" to non-empty members.
+                      additionalProperties: false
+                      type: object
+                      required:
+                        - type
+                        - id
+                      properties:
+                        meta:
+                          description: Non-standard meta-information that can not be represented as an
+                            attribute or relationship.
+                          additionalProperties: true
+                          type: object
+                          properties: {}
+                        id:
+                          format: uuid
+                          title: Resource ID
+                          type: string
+                        type:
+                          title: Resource type name
+                          type: string
+                          enum:
+                            - paragraph--hero
+      parameters:
+        - in: query
+          name: resourceVersion
+          description: The JSON:API module exposes entity revisions as resource versions.
+            <a
+            href="https://www.drupal.org/docs/8/modules/jsonapi/revisions">Learn
+            more in the documentation</a>.
+          required: false
+          schema:
+            type: string
+        - in: path
+          name: entity
+          description: The uuid of the node page
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: include
+          description: include relation data
+          required: false
+          schema:
+            type: string
+      tags:
+        - Content - Basic page
+  "/paragraph/hero/{entity}/relationships/field_link":
+    get:
+      summary: "Relationship: field_link (Content - Basic page)"
+      description: <em class="placeholder"><a
+        href="https://jsonapi.org/format/#fetching-relationships">Relationship
+        endpoint</a></em> for the node--page resource type through the <em
+        class="placeholder">field_link</em> relationship. The relationship
+        endpoint contains a <em class="placeholder"><a
+        href="https://jsonapi.org/format/#document-resource-identifier-objects">resource
+        identifier object</a></em> with the data for a particular relationship.
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    description: The "type" and "id" to non-empty members.
+                    additionalProperties: false
+                    type: object
+                    required:
+                      - type
+                      - id
+                    properties:
+                      meta:
+                        description: Non-standard meta-information that can not be represented as an
+                          attribute or relationship.
+                        additionalProperties: true
+                        type: object
+                        properties: {}
+                      id:
+                        format: uuid
+                        title: Resource ID
+                        type: string
+                      type:
+                        title: Resource type name
+                        type: string
+                        enum:
+                          - node--page
+      parameters:
+        - in: path
+          name: entity
+          description: The uuid of the paragraph hero
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: include
+          description: include relation data
+          required: false
+          schema:
+            type: string
+      tags:
+        - Paragraph - Hero
+  /node/page:
+    get:
+      summary: List (Content - Basic page)
+      description: <em class="placeholder"><a
+        href="http://jsonapi.org/format/#fetching">Collection endpoint</a></em>
+        for the node--page resource type. Collections are a list of <em
+        class="placeholder"><a
+        href="http://jsonapi.org/format/#document-resource-objects">resource
+        objects</a></em> for a particular resource type. In the JSON API module
+        for Drupal all collections are homogeneous, which means that all the
+        items in a collection are of the same type.
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/vnd.api+json:
+              schema:
+                description: Use basic pages for your static content, such as an \'About us\'
+                  page.
+                additionalProperties: true
+                title: node:page Schema
+                type: object
+                required:
+                  - data
+                properties:
+                  jsonapi:
+                    description: An object describing the server's implementation
+                    additionalProperties: false
+                    type: object
+                    properties:
+                      meta:
+                        description: Non-standard meta-information that can not be represented as an
+                          attribute or relationship.
+                        additionalProperties: true
+                        type: object
+                      version:
+                        type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/node--page/properties/data"
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an
+                      attribute or relationship.
+                    additionalProperties: true
+                    type: object
+                  links:
+                    additionalProperties:
+                      description: "A link **MUST** be represented as either: a string containing the
+                        link's URL or a link object . "
+                      type: object
+                      required:
+                        - href
+                      properties:
+                        meta:
+                          description: Non-standard meta-information that can not be represented as an
+                            attribute or relationship.
+                          additionalProperties: true
+                          type: object
+                        href:
+                          format: uri - reference
+                          description: "A string containing the link's URL . "
+                          type: string
+                    type: object
+      parameters:
+        - in: query
+          name: resourceVersion
+          description: The JSON:API module exposes entity revisions as resource versions.
+            <a
+            href="https://www.drupal.org/docs/8/modules/jsonapi/revisions">Learn
+            more in the documentation</a>.
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: filter
+          description: The JSON:API module has some of the most robust and feature-rich
+            filtering features around. All of that power comes with a bit of a
+            learning curve though. <a
+            href="https://www.drupal.org/docs/8/modules/jsonapi/filtering">Learn
+            more in the documentation</a>.
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: sort
+          description: The JSON:API module allows you to sort collections based on
+            properties in the resource or in nested resources. <a
+            href="https://www.drupal.org/docs/8/modules/jsonapi/sorting">Learn
+            more in the documentation</a>.
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: page
+          description: Pagination can be a deceptively complex topic. It's easy to fall
+            into traps and not follow best-practices. <a
+            href="https://www.drupal.org/docs/8/modules/jsonapi/pagination">Learn
+            more in the documentation</a>.
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: include
+          description: 'Embed related entities in the response. For example: use a query
+            string like <code>?include=comments.author</code> to include all the
+            entities referenced by <code>comments</code> and all the entities
+            referenced by <code>author</code> on those entities!. <a
+            href="https://www.drupal.org/docs/8/modules/jsonapi/includes">Learn
+            more in the documentation</a>.'
+          required: false
+          schema:
+            type: string
+      tags:
+        - Content - Basic page
+  "/paragraph/text_media_box/{entity}/relationships/field_link":
+    get:
+      summary: "Relationship: field_link (Content - Basic page)"
+      description: <em class="placeholder"><a
+        href="https://jsonapi.org/format/#fetching-relationships">Relationship
+        endpoint</a></em> for the node--page resource type through the <em
+        class="placeholder">field_link</em> relationship. The relationship
+        endpoint contains a <em class="placeholder"><a
+        href="https://jsonapi.org/format/#document-resource-identifier-objects">resource
+        identifier object</a></em> with the data for a particular relationship.
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    description: The "type" and "id" to non-empty members.
+                    additionalProperties: false
+                    type: object
+                    required:
+                      - type
+                      - id
+                    properties:
+                      meta:
+                        description: Non-standard meta-information that can not be represented as an
+                          attribute or relationship.
+                        additionalProperties: true
+                        type: object
+                        properties: {}
+                      id:
+                        format: uuid
+                        title: Resource ID
+                        type: string
+                      type:
+                        title: Resource type name
+                        type: string
+                        enum:
+                          - node--page
+      parameters:
+        - in: path
+          name: entity
+          description: The uuid of the paragraph text_media_box
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: include
+          description: include relation data
+          required: false
+          schema:
+            type: string
+      tags:
+        - Paragraph - Text-Media-Box
+  "/paragraph/hero/{entity}/relationships/paragraph_type":
+    get:
+      summary: "Relationship: paragraph_type (Paragraphs type)"
+      description: <em class="placeholder"><a
+        href="https://jsonapi.org/format/#fetching-relationships">Relationship
+        endpoint</a></em> for the paragraphs_type--paragraphs_type resource type
+        through the <em class="placeholder">paragraph_type</em> relationship.
+        The relationship endpoint contains a <em class="placeholder"><a
+        href="https://jsonapi.org/format/#document-resource-identifier-objects">resource
+        identifier object</a></em> with the data for a particular relationship.
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    description: The "type" and "id" to non-empty members.
+                    additionalProperties: false
+                    type: object
+                    required:
+                      - type
+                      - id
+                    properties:
+                      meta:
+                        description: Non-standard meta-information that can not be represented as an
+                          attribute or relationship.
+                        additionalProperties: true
+                        type: object
+                        properties: {}
+                      id:
+                        format: uuid
+                        title: Resource ID
+                        type: string
+                      type:
+                        title: Resource type name
+                        type: string
+                        enum:
+                          - paragraphs_type--paragraphs_type
+      parameters:
+        - in: path
+          name: entity
+          description: The uuid of the paragraph hero
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: include
+          description: include relation data
+          required: false
+          schema:
+            type: string
+      tags:
+        - Paragraph - Hero
+  "/paragraph/text_media_box/{entity}":
+    get:
+      summary: View (Paragraph - Text-Media-Box)
+      description: <em class="placeholder"><a
+        href="http://jsonapi.org/format/#fetching">Individual endpoint</a></em>
+        for the paragraph--text_media_box resource type. The individual endpoint
+        contains a <em class="placeholder"><a
+        href="http://jsonapi.org/format/#document-resource-objects">resource
+        object</a></em> with the data for a particular resource or entity.
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/paragraph--text_media_box"
+      parameters:
+        - in: path
+          name: entity
+          description: The uuid of the paragraph text_media_box
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: include
+          description: include relation data
+          required: false
+          schema:
+            type: string
+      tags:
+        - Paragraph - Text-Media-Box
+info:
+  description: This is a JSON API compliant implementation
+  title: swisspostsolutionscms - JSON API
+  version: Versioning not supported
+tags:
+  - x-entity-type: node
+    name: Content - Basic page
+    description: Content type Basic page of type Content. Use <em>basic pages</em>
+      for your static content, such as an 'About us' page.
+    x-definition:
+      $ref: "#/components/schemas/node--page"
+  - x-entity-type: paragraph
+    name: Paragraph - Hero
+    description: "Paragraph type Hero of type Paragraph. "
+    x-definition:
+      $ref: "#/components/schemas/paragraph--hero"
+  - x-entity-type: paragraph
+    name: Paragraph - Text-Media-Box
+    description: "Paragraph type Text-Media-Box of type Paragraph. "
+    x-definition:
+      $ref: "#/components/schemas/paragraph--text_media_box"
+servers:
+  - url: http://swisspostsolutionscms.docker.localhost:81/jsonapi
+components:
+  securitySchemes:
+    csrf_token:
+      x-tokenUrl: http://swisspostsolutionscms.docker.localhost:81/user/token
+      in: header
+      name: X-CSRF-Token
+      type: apiKey
+  schemas:
+    paragraph--text_media_box:
+      description: Describes the payload for 'paragraph' entities of the
+        'text_media_box' bundle.
+      additionalProperties: true
+      title: paragraph:text_media_box Schema
+      type: object
+      required:
+        - data
+      properties:
+        jsonapi:
+          description: An object describing the server's implementation
+          additionalProperties: false
+          type: object
+          properties:
+            meta:
+              description: Non-standard meta-information that can not be represented as an
+                attribute or relationship.
+              additionalProperties: true
+              type: object
+            version:
+              type: string
+        data:
+          description: \"Resource objects\" appear in a JSON:API document to represent
+            resources.
+          additionalProperties: false
+          type: object
+          required:
+            - type
+            - id
+          properties:
+            relationships:
+              description: Entity relationships
+              additionalProperties: false
+              type: object
+              properties:
+                field_link:
+                  type: object
+                  title: Link
+                  properties:
+                    data:
+                      type: object
+                      required:
+                        - type
+                        - id
+                      properties:
+                        id:
+                          format: uuid
+                          type: string
+                          title: Resource ID
+                          maxLength: 128
+                        type:
+                          type: string
+                          title: Referenced resource
+                          enum:
+                            - node--page
+                paragraph_type:
+                  type: object
+                  title: Paragraph type
+                  properties:
+                    data:
+                      type: object
+                      required:
+                        - type
+                        - id
+                      properties:
+                        id:
+                          format: uuid
+                          type: string
+                          title: Resource ID
+                          maxLength: 128
+                        type:
+                          type: string
+                          title: Referenced resource
+                          enum:
+                            - paragraphs_type--paragraphs_type
+            meta:
+              description: Non-standard meta-information that can not be represented as an
+                attribute or relationship.
+              additionalProperties: true
+              type: object
+            attributes:
+              description: Entity attributes
+              additionalProperties: false
+              type: object
+              properties:
+                revision_default:
+                  description: A flag indicating whether this was a default revision when it was
+                    saved.
+                  type: boolean
+                  title: Default revision
+                drupal_internal__revision_id:
+                  type: integer
+                  title: Revision ID
+                created:
+                  format: utc-millisec
+                  description: The time that the Paragraph was created.
+                  type: number
+                  title: Authored on
+                default_langcode:
+                  default: true
+                  description: A flag indicating whether this is the default translation.
+                  type: boolean
+                  title: Default translation
+                parent_type:
+                  description: The entity parent type to which this entity is referenced.
+                  type: string
+                  title: Parent type
+                  maxLength: 32
+                revision_translation_affected:
+                  description: Indicates if the last edit of a translation belongs to current
+                    revision.
+                  type: boolean
+                  title: Revision translation affected
+                field_title:
+                  type: string
+                  title: Title
+                  maxLength: 255
+                drupal_internal__id:
+                  type: integer
+                  title: ID
+                parent_field_name:
+                  description: The entity parent field name to which this entity is referenced.
+                  type: string
+                  title: Parent field name
+                  maxLength: 32
+                langcode:
+                  description: The paragraphs entity language code.
+                  type: object
+                  title: Language code
+                  properties:
+                    language:
+                      description: The referenced language
+                      type: string
+                      title: Language object
+                    value:
+                      type: string
+                      title: Language code
+                  required:
+                    - value
+                field_text:
+                  type: object
+                  title: Text
+                  properties:
+                    format:
+                      type: string
+                      title: Text format
+                    value:
+                      type: string
+                      title: Text
+                  required:
+                    - value
+                parent_id:
+                  description: The ID of the parent entity of which this entity is referenced.
+                  type: string
+                  title: Parent ID
+                  maxLength: 255
+                behavior_settings:
+                  default: a:0:{}
+                  description: The behavior plugin settings
+                  type: string
+                  title: Behavior settings
+                status:
+                  default: true
+                  type: boolean
+                  title: Published
+              required:
+                - drupal_internal__id
+                - drupal_internal__revision_id
+                - revision_translation_affected
+            links:
+              additionalProperties:
+                description: "A link **MUST** be represented as either: a string containing the
+                  link's URL or a link object . "
+                type: object
+                required:
+                  - href
+                properties:
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an
+                      attribute or relationship.
+                    additionalProperties: true
+                    type: object
+                  href:
+                    format: uri - reference
+                    description: "A string containing the link's URL . "
+                    type: string
+              type: object
+            id:
+              format: uuid
+              type: string
+              title: Resource ID
+              maxLength: 128
+            type:
+              description: Resource type
+              type: string
+              title: type
+              enum:
+                - paragraph--text_media_box
+        meta:
+          description: Non-standard meta-information that can not be represented as an
+            attribute or relationship.
+          additionalProperties: true
+          type: object
+        links:
+          additionalProperties:
+            description: "A link **MUST** be represented as either: a string containing the
+              link's URL or a link object . "
+            type: object
+            required:
+              - href
+            properties:
+              meta:
+                description: Non-standard meta-information that can not be represented as an
+                  attribute or relationship.
+                additionalProperties: true
+                type: object
+              href:
+                format: uri - reference
+                description: "A string containing the link's URL . "
+                type: string
+          type: object
+    node--page:
+      description: Use basic pages for your static content, such as an \'About us\' page.
+      additionalProperties: true
+      title: node:page Schema
+      type: object
+      required:
+        - data
+      properties:
+        jsonapi:
+          description: An object describing the server's implementation
+          additionalProperties: false
+          type: object
+          properties:
+            meta:
+              description: Non-standard meta-information that can not be represented as an
+                attribute or relationship.
+              additionalProperties: true
+              type: object
+            version:
+              type: string
+        data:
+          description: \"Resource objects\" appear in a JSON:API document to represent
+            resources.
+          additionalProperties: false
+          type: object
+          required:
+            - type
+            - id
+          properties:
+            relationships:
+              description: Entity relationships
+              additionalProperties: false
+              type: object
+              properties:
+                revision_uid:
+                  type: object
+                  title: Revision user
+                  properties:
+                    data:
+                      type: object
+                      required:
+                        - type
+                        - id
+                      properties:
+                        id:
+                          format: uuid
+                          type: string
+                          title: Resource ID
+                          maxLength: 128
+                        type:
+                          type: string
+                          title: Referenced resource
+                          enum:
+                            - user--user
+                uid:
+                  type: object
+                  title: Authored by
+                  properties:
+                    data:
+                      type: object
+                      required:
+                        - type
+                        - id
+                      properties:
+                        id:
+                          format: uuid
+                          type: string
+                          title: Resource ID
+                          maxLength: 128
+                        type:
+                          type: string
+                          title: Referenced resource
+                          enum:
+                            - user--user
+                node_type:
+                  type: object
+                  title: Content type
+                  properties:
+                    data:
+                      type: object
+                      required:
+                        - type
+                        - id
+                      properties:
+                        id:
+                          format: uuid
+                          type: string
+                          title: Resource ID
+                          maxLength: 128
+                        type:
+                          type: string
+                          title: Referenced resource
+                          enum:
+                            - node_type--node_type
+                field_component:
+                  type: object
+                  title: Component
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                          - type
+                          - id
+                        properties:
+                          id:
+                            format: uuid
+                            type: string
+                            title: Resource ID
+                            maxLength: 128
+                          type:
+                            type: string
+                            title: Referenced resource
+            meta:
+              description: Non-standard meta-information that can not be represented as an
+                attribute or relationship.
+              additionalProperties: true
+              type: object
+            attributes:
+              description: Entity attributes
+              additionalProperties: false
+              type: object
+              properties:
+                revision_default:
+                  description: A flag indicating whether this was a default revision when it was
+                    saved.
+                  type: boolean
+                  title: Default revision
+                created:
+                  format: utc-millisec
+                  description: The time that the node was created.
+                  type: number
+                  title: Authored on
+                default_langcode:
+                  default: true
+                  description: A flag indicating whether this is the default translation.
+                  type: boolean
+                  title: Default translation
+                title:
+                  type: string
+                  title: Title
+                  maxLength: 255
+                revision_translation_affected:
+                  description: Indicates if the last edit of a translation belongs to current
+                    revision.
+                  type: boolean
+                  title: Revision translation affected
+                body:
+                  type: object
+                  title: Body
+                  properties:
+                    summary:
+                      type: string
+                      title: Summary
+                    format:
+                      type: string
+                      title: Text format
+                    value:
+                      type: string
+                      title: Text
+                  required:
+                    - value
+                drupal_internal__nid:
+                  type: integer
+                  title: ID
+                langcode:
+                  type: object
+                  title: Language
+                  properties:
+                    language:
+                      description: The referenced language
+                      type: string
+                      title: Language object
+                    value:
+                      type: string
+                      title: Language code
+                  required:
+                    - value
+                promote:
+                  default: false
+                  type: boolean
+                  title: Promoted to front page
+                path:
+                  type: object
+                  title: URL alias
+                  properties:
+                    langcode:
+                      type: string
+                      title: Language Code
+                    alias:
+                      type: string
+                      title: Path alias
+                    pid:
+                      type: integer
+                      title: Path id
+                sticky:
+                  default: false
+                  type: boolean
+                  title: Sticky at top of lists
+                drupal_internal__vid:
+                  type: integer
+                  title: Revision ID
+                revision_timestamp:
+                  format: utc-millisec
+                  description: The time that the current revision was created.
+                  type: number
+                  title: Revision create time
+                revision_log:
+                  default: ""
+                  description: Briefly describe the changes you have made.
+                  type: string
+                  title: Revision log message
+                status:
+                  default: true
+                  type: boolean
+                  title: Published
+                changed:
+                  format: utc-millisec
+                  description: The time that the node was last edited.
+                  type: number
+                  title: Changed
+              required:
+                - drupal_internal__nid
+                - drupal_internal__vid
+                - title
+                - revision_translation_affected
+                - path
+            links:
+              additionalProperties:
+                description: "A link **MUST** be represented as either: a string containing the
+                  link's URL or a link object . "
+                type: object
+                required:
+                  - href
+                properties:
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an
+                      attribute or relationship.
+                    additionalProperties: true
+                    type: object
+                  href:
+                    format: uri - reference
+                    description: "A string containing the link's URL . "
+                    type: string
+              type: object
+            id:
+              format: uuid
+              type: string
+              title: Resource ID
+              maxLength: 128
+            type:
+              description: Resource type
+              type: string
+              title: type
+              enum:
+                - node--page
+        meta:
+          description: Non-standard meta-information that can not be represented as an
+            attribute or relationship.
+          additionalProperties: true
+          type: object
+        links:
+          additionalProperties:
+            description: "A link **MUST** be represented as either: a string containing the
+              link's URL or a link object . "
+            type: object
+            required:
+              - href
+            properties:
+              meta:
+                description: Non-standard meta-information that can not be represented as an
+                  attribute or relationship.
+                additionalProperties: true
+                type: object
+              href:
+                format: uri - reference
+                description: "A string containing the link's URL . "
+                type: string
+          type: object
+    paragraph--hero:
+      description: Describes the payload for 'paragraph' entities of the 'hero' bundle.
+      additionalProperties: true
+      title: paragraph:hero Schema
+      type: object
+      required:
+        - data
+      properties:
+        jsonapi:
+          description: An object describing the server's implementation
+          additionalProperties: false
+          type: object
+          properties:
+            meta:
+              description: Non-standard meta-information that can not be represented as an
+                attribute or relationship.
+              additionalProperties: true
+              type: object
+            version:
+              type: string
+        data:
+          description: \"Resource objects\" appear in a JSON:API document to represent
+            resources.
+          additionalProperties: false
+          type: object
+          required:
+            - type
+            - id
+          properties:
+            relationships:
+              description: Entity relationships
+              additionalProperties: false
+              type: object
+              properties:
+                field_link:
+                  type: object
+                  title: Link
+                  properties:
+                    data:
+                      type: object
+                      required:
+                        - type
+                        - id
+                      properties:
+                        id:
+                          format: uuid
+                          type: string
+                          title: Resource ID
+                          maxLength: 128
+                        type:
+                          type: string
+                          title: Referenced resource
+                          enum:
+                            - node--page
+                paragraph_type:
+                  type: object
+                  title: Paragraph type
+                  properties:
+                    data:
+                      type: object
+                      required:
+                        - type
+                        - id
+                      properties:
+                        id:
+                          format: uuid
+                          type: string
+                          title: Resource ID
+                          maxLength: 128
+                        type:
+                          type: string
+                          title: Referenced resource
+                          enum:
+                            - paragraphs_type--paragraphs_type
+            meta:
+              description: Non-standard meta-information that can not be represented as an
+                attribute or relationship.
+              additionalProperties: true
+              type: object
+            attributes:
+              description: Entity attributes
+              additionalProperties: false
+              type: object
+              properties:
+                revision_default:
+                  description: A flag indicating whether this was a default revision when it was
+                    saved.
+                  type: boolean
+                  title: Default revision
+                drupal_internal__revision_id:
+                  type: integer
+                  title: Revision ID
+                created:
+                  format: utc-millisec
+                  description: The time that the Paragraph was created.
+                  type: number
+                  title: Authored on
+                default_langcode:
+                  default: true
+                  description: A flag indicating whether this is the default translation.
+                  type: boolean
+                  title: Default translation
+                parent_type:
+                  description: The entity parent type to which this entity is referenced.
+                  type: string
+                  title: Parent type
+                  maxLength: 32
+                revision_translation_affected:
+                  description: Indicates if the last edit of a translation belongs to current
+                    revision.
+                  type: boolean
+                  title: Revision translation affected
+                field_title:
+                  type: string
+                  title: Title
+                  maxLength: 255
+                drupal_internal__id:
+                  type: integer
+                  title: ID
+                field_subtitle:
+                  type: string
+                  title: Subtitle
+                parent_field_name:
+                  description: The entity parent field name to which this entity is referenced.
+                  type: string
+                  title: Parent field name
+                  maxLength: 32
+                langcode:
+                  description: The paragraphs entity language code.
+                  type: object
+                  title: Language code
+                  properties:
+                    language:
+                      description: The referenced language
+                      type: string
+                      title: Language object
+                    value:
+                      type: string
+                      title: Language code
+                  required:
+                    - value
+                parent_id:
+                  description: The ID of the parent entity of which this entity is referenced.
+                  type: string
+                  title: Parent ID
+                  maxLength: 255
+                behavior_settings:
+                  default: a:0:{}
+                  description: The behavior plugin settings
+                  type: string
+                  title: Behavior settings
+                status:
+                  default: true
+                  type: boolean
+                  title: Published
+              required:
+                - drupal_internal__id
+                - drupal_internal__revision_id
+                - revision_translation_affected
+            links:
+              additionalProperties:
+                description: "A link **MUST** be represented as either: a string containing the
+                  link's URL or a link object . "
+                type: object
+                required:
+                  - href
+                properties:
+                  meta:
+                    description: Non-standard meta-information that can not be represented as an
+                      attribute or relationship.
+                    additionalProperties: true
+                    type: object
+                  href:
+                    format: uri - reference
+                    description: "A string containing the link's URL . "
+                    type: string
+              type: object
+            id:
+              format: uuid
+              type: string
+              title: Resource ID
+              maxLength: 128
+            type:
+              description: Resource type
+              type: string
+              title: type
+              enum:
+                - paragraph--hero
+        meta:
+          description: Non-standard meta-information that can not be represented as an
+            attribute or relationship.
+          additionalProperties: true
+          type: object
+        links:
+          additionalProperties:
+            description: "A link **MUST** be represented as either: a string containing the
+              link's URL or a link object . "
+            type: object
+            required:
+              - href
+            properties:
+              meta:
+                description: Non-standard meta-information that can not be represented as an
+                  attribute or relationship.
+                additionalProperties: true
+                type: object
+              href:
+                format: uri - reference
+                description: "A string containing the link's URL . "
+                type: string
+          type: object

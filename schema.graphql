@@ -1,0 +1,299 @@
+type Query {
+  """
+  <em class="placeholder"><a href="http://jsonapi.org/format/#fetching">Collection endpoint</a></em> for the node--page resource type. Collections are a list of <em class="placeholder"><a href="http://jsonapi.org/format/#document-resource-objects">resource objects</a></em> for a particular resource type. In the JSON API module for Drupal all collections are homogeneous, which means that all the items in a collection are of the same type.
+  
+  Equivalent to GET /node/page
+  """
+  getNodePage(
+    """
+    The JSON:API module has some of the most robust and feature-rich filtering features around. All of that power comes with a bit of a learning curve though. <a href="https://www.drupal.org/docs/8/modules/jsonapi/filtering">Learn more in the documentation</a>.
+    """
+    filter: [String]
+
+    """
+    Embed related entities in the response. For example: use a query string like <code>?include=comments.author</code> to include all the entities referenced by <code>comments</code> and all the entities referenced by <code>author</code> on those entities!. <a href="https://www.drupal.org/docs/8/modules/jsonapi/includes">Learn more in the documentation</a>.
+    """
+    include: String
+
+    """
+    Pagination can be a deceptively complex topic. It's easy to fall into traps and not follow best-practices. <a href="https://www.drupal.org/docs/8/modules/jsonapi/pagination">Learn more in the documentation</a>.
+    """
+    page: [String]
+
+    """
+    The JSON:API module exposes entity revisions as resource versions. <a href="https://www.drupal.org/docs/8/modules/jsonapi/revisions">Learn more in the documentation</a>.
+    """
+    resourceVersion: String
+
+    """
+    The JSON:API module allows you to sort collections based on properties in the resource or in nested resources. <a href="https://www.drupal.org/docs/8/modules/jsonapi/sorting">Learn more in the documentation</a>.
+    """
+    sort: [String]
+  ): String
+
+  """
+  <em class="placeholder"><a href="http://jsonapi.org/format/#fetching">Individual endpoint</a></em> for the paragraph--hero resource type. The individual endpoint contains a <em class="placeholder"><a href="http://jsonapi.org/format/#document-resource-objects">resource object</a></em> with the data for a particular resource or entity.
+  
+  Equivalent to GET /paragraph/hero/{entity}
+  """
+  getParagraphHeroEntity(
+    """The uuid of the paragraph hero"""
+    entity: ID!
+
+    """include relation data"""
+    include: String
+  ): String
+
+  """
+  <em class="placeholder"><a href="http://jsonapi.org/format/#fetching">Individual endpoint</a></em> for the paragraph--text_media_box resource type. The individual endpoint contains a <em class="placeholder"><a href="http://jsonapi.org/format/#document-resource-objects">resource object</a></em> with the data for a particular resource or entity.
+  
+  Equivalent to GET /paragraph/text_media_box/{entity}
+  """
+  getParagraphTextMediaBoxEntity(
+    """The uuid of the paragraph text_media_box"""
+    entity: ID!
+
+    """include relation data"""
+    include: String
+  ): String
+
+  """
+  <em class="placeholder"><a href="http://jsonapi.org/format/#fetching">Individual endpoint</a></em> for the node--page resource type. The individual endpoint contains a <em class="placeholder"><a href="http://jsonapi.org/format/#document-resource-objects">resource object</a></em> with the data for a particular resource or entity.
+  
+  Equivalent to GET /node/page/{entity}
+  """
+  nodePage(
+    """The uuid of the node page"""
+    entity: ID!
+
+    """include relation data"""
+    include: String
+
+    """
+    The JSON:API module exposes entity revisions as resource versions. <a href="https://www.drupal.org/docs/8/modules/jsonapi/revisions">Learn more in the documentation</a>.
+    """
+    resourceVersion: String
+  ): String
+
+  """
+  <em class="placeholder"><a href="http://jsonapi.org/format/#fetching">Related endpoint</a></em> for the paragraph--hero resource type through the <em class="placeholder">field_component</em> relationship. The related endpoint contains a <em class="placeholder"><a href="http://jsonapi.org/format/#document-resource-objects">resource object</a></em> with the data for a particular related resource or entity.
+  
+  Equivalent to GET /node/page/{entity}/field_component
+  """
+  nodePageFieldComponent(
+    """The uuid of the node page"""
+    entity: ID!
+
+    """include relation data"""
+    include: String
+
+    """
+    The JSON:API module exposes entity revisions as resource versions. <a href="https://www.drupal.org/docs/8/modules/jsonapi/revisions">Learn more in the documentation</a>.
+    """
+    resourceVersion: String
+  ): String
+
+  """
+  <em class="placeholder"><a href="https://jsonapi.org/format/#fetching-relationships">Relationship endpoint</a></em> for the paragraph--hero resource type through the <em class="placeholder">field_component</em> relationship. The relationship endpoint contains a <em class="placeholder"><a href="https://jsonapi.org/format/#document-resource-identifier-objects">resource identifier object</a></em> with the data for a particular relationship.
+  
+  Equivalent to GET /node/page/{entity}/relationships/field_component
+  """
+  nodePageRelationshipsFieldComponent(
+    """The uuid of the node page"""
+    entity: ID!
+
+    """include relation data"""
+    include: String
+
+    """
+    The JSON:API module exposes entity revisions as resource versions. <a href="https://www.drupal.org/docs/8/modules/jsonapi/revisions">Learn more in the documentation</a>.
+    """
+    resourceVersion: String
+  ): String
+
+  """
+  <em class="placeholder"><a href="https://jsonapi.org/format/#fetching-relationships">Relationship endpoint</a></em> for the node_type--node_type resource type through the <em class="placeholder">node_type</em> relationship. The relationship endpoint contains a <em class="placeholder"><a href="https://jsonapi.org/format/#document-resource-identifier-objects">resource identifier object</a></em> with the data for a particular relationship.
+  
+  Equivalent to GET /node/page/{entity}/relationships/node_type
+  """
+  nodePageRelationshipsNodeType(
+    """The uuid of the node page"""
+    entity: ID!
+
+    """include relation data"""
+    include: String
+
+    """
+    The JSON:API module exposes entity revisions as resource versions. <a href="https://www.drupal.org/docs/8/modules/jsonapi/revisions">Learn more in the documentation</a>.
+    """
+    resourceVersion: String
+  ): String
+
+  """
+  <em class="placeholder"><a href="https://jsonapi.org/format/#fetching-relationships">Relationship endpoint</a></em> for the user--user resource type through the <em class="placeholder">revision_uid</em> relationship. The relationship endpoint contains a <em class="placeholder"><a href="https://jsonapi.org/format/#document-resource-identifier-objects">resource identifier object</a></em> with the data for a particular relationship.
+  
+  Equivalent to GET /node/page/{entity}/relationships/revision_uid
+  """
+  nodePageRelationshipsRevisionUid(
+    """The uuid of the node page"""
+    entity: ID!
+
+    """include relation data"""
+    include: String
+
+    """
+    The JSON:API module exposes entity revisions as resource versions. <a href="https://www.drupal.org/docs/8/modules/jsonapi/revisions">Learn more in the documentation</a>.
+    """
+    resourceVersion: String
+  ): String
+
+  """
+  <em class="placeholder"><a href="https://jsonapi.org/format/#fetching-relationships">Relationship endpoint</a></em> for the user--user resource type through the <em class="placeholder">uid</em> relationship. The relationship endpoint contains a <em class="placeholder"><a href="https://jsonapi.org/format/#document-resource-identifier-objects">resource identifier object</a></em> with the data for a particular relationship.
+  
+  Equivalent to GET /node/page/{entity}/relationships/uid
+  """
+  nodePageRelationshipsUid(
+    """The uuid of the node page"""
+    entity: ID!
+
+    """include relation data"""
+    include: String
+
+    """
+    The JSON:API module exposes entity revisions as resource versions. <a href="https://www.drupal.org/docs/8/modules/jsonapi/revisions">Learn more in the documentation</a>.
+    """
+    resourceVersion: String
+  ): String
+
+  """
+  <em class="placeholder"><a href="http://jsonapi.org/format/#fetching">Collection endpoint</a></em> for the paragraph--hero resource type. Collections are a list of <em class="placeholder"><a href="http://jsonapi.org/format/#document-resource-objects">resource objects</a></em> for a particular resource type. In the JSON API module for Drupal all collections are homogeneous, which means that all the items in a collection are of the same type.
+  
+  Equivalent to GET /paragraph/hero
+  """
+  paragraphHero(
+    """
+    The JSON:API module has some of the most robust and feature-rich filtering features around. All of that power comes with a bit of a learning curve though. <a href="https://www.drupal.org/docs/8/modules/jsonapi/filtering">Learn more in the documentation</a>.
+    """
+    filter: [String]
+
+    """
+    Embed related entities in the response. For example: use a query string like <code>?include=comments.author</code> to include all the entities referenced by <code>comments</code> and all the entities referenced by <code>author</code> on those entities!. <a href="https://www.drupal.org/docs/8/modules/jsonapi/includes">Learn more in the documentation</a>.
+    """
+    include: String
+
+    """
+    Pagination can be a deceptively complex topic. It's easy to fall into traps and not follow best-practices. <a href="https://www.drupal.org/docs/8/modules/jsonapi/pagination">Learn more in the documentation</a>.
+    """
+    page: [String]
+
+    """
+    The JSON:API module allows you to sort collections based on properties in the resource or in nested resources. <a href="https://www.drupal.org/docs/8/modules/jsonapi/sorting">Learn more in the documentation</a>.
+    """
+    sort: [String]
+  ): String
+
+  """
+  <em class="placeholder"><a href="http://jsonapi.org/format/#fetching">Related endpoint</a></em> for the node--page resource type through the <em class="placeholder">field_link</em> relationship. The related endpoint contains a <em class="placeholder"><a href="http://jsonapi.org/format/#document-resource-objects">resource object</a></em> with the data for a particular related resource or entity.
+  
+  Equivalent to GET /paragraph/hero/{entity}/field_link
+  """
+  paragraphHeroFieldLink(
+    """The uuid of the paragraph hero"""
+    entity: ID!
+
+    """include relation data"""
+    include: String
+  ): String
+
+  """
+  <em class="placeholder"><a href="https://jsonapi.org/format/#fetching-relationships">Relationship endpoint</a></em> for the node--page resource type through the <em class="placeholder">field_link</em> relationship. The relationship endpoint contains a <em class="placeholder"><a href="https://jsonapi.org/format/#document-resource-identifier-objects">resource identifier object</a></em> with the data for a particular relationship.
+  
+  Equivalent to GET /paragraph/hero/{entity}/relationships/field_link
+  """
+  paragraphHeroRelationshipsFieldLink(
+    """The uuid of the paragraph hero"""
+    entity: ID!
+
+    """include relation data"""
+    include: String
+  ): String
+
+  """
+  <em class="placeholder"><a href="https://jsonapi.org/format/#fetching-relationships">Relationship endpoint</a></em> for the paragraphs_type--paragraphs_type resource type through the <em class="placeholder">paragraph_type</em> relationship. The relationship endpoint contains a <em class="placeholder"><a href="https://jsonapi.org/format/#document-resource-identifier-objects">resource identifier object</a></em> with the data for a particular relationship.
+  
+  Equivalent to GET /paragraph/hero/{entity}/relationships/paragraph_type
+  """
+  paragraphHeroRelationshipsParagraphType(
+    """The uuid of the paragraph hero"""
+    entity: ID!
+
+    """include relation data"""
+    include: String
+  ): String
+
+  """
+  <em class="placeholder"><a href="http://jsonapi.org/format/#fetching">Collection endpoint</a></em> for the paragraph--text_media_box resource type. Collections are a list of <em class="placeholder"><a href="http://jsonapi.org/format/#document-resource-objects">resource objects</a></em> for a particular resource type. In the JSON API module for Drupal all collections are homogeneous, which means that all the items in a collection are of the same type.
+  
+  Equivalent to GET /paragraph/text_media_box
+  """
+  paragraphTextMediaBox(
+    """
+    The JSON:API module has some of the most robust and feature-rich filtering features around. All of that power comes with a bit of a learning curve though. <a href="https://www.drupal.org/docs/8/modules/jsonapi/filtering">Learn more in the documentation</a>.
+    """
+    filter: [String]
+
+    """
+    Embed related entities in the response. For example: use a query string like <code>?include=comments.author</code> to include all the entities referenced by <code>comments</code> and all the entities referenced by <code>author</code> on those entities!. <a href="https://www.drupal.org/docs/8/modules/jsonapi/includes">Learn more in the documentation</a>.
+    """
+    include: String
+
+    """
+    Pagination can be a deceptively complex topic. It's easy to fall into traps and not follow best-practices. <a href="https://www.drupal.org/docs/8/modules/jsonapi/pagination">Learn more in the documentation</a>.
+    """
+    page: [String]
+
+    """
+    The JSON:API module allows you to sort collections based on properties in the resource or in nested resources. <a href="https://www.drupal.org/docs/8/modules/jsonapi/sorting">Learn more in the documentation</a>.
+    """
+    sort: [String]
+  ): String
+
+  """
+  <em class="placeholder"><a href="http://jsonapi.org/format/#fetching">Related endpoint</a></em> for the node--page resource type through the <em class="placeholder">field_link</em> relationship. The related endpoint contains a <em class="placeholder"><a href="http://jsonapi.org/format/#document-resource-objects">resource object</a></em> with the data for a particular related resource or entity.
+  
+  Equivalent to GET /paragraph/text_media_box/{entity}/field_link
+  """
+  paragraphTextMediaBoxFieldLink(
+    """The uuid of the paragraph text_media_box"""
+    entity: ID!
+
+    """include relation data"""
+    include: String
+  ): String
+
+  """
+  <em class="placeholder"><a href="https://jsonapi.org/format/#fetching-relationships">Relationship endpoint</a></em> for the node--page resource type through the <em class="placeholder">field_link</em> relationship. The relationship endpoint contains a <em class="placeholder"><a href="https://jsonapi.org/format/#document-resource-identifier-objects">resource identifier object</a></em> with the data for a particular relationship.
+  
+  Equivalent to GET /paragraph/text_media_box/{entity}/relationships/field_link
+  """
+  paragraphTextMediaBoxRelationshipsFieldLink(
+    """The uuid of the paragraph text_media_box"""
+    entity: ID!
+
+    """include relation data"""
+    include: String
+  ): String
+
+  """
+  <em class="placeholder"><a href="https://jsonapi.org/format/#fetching-relationships">Relationship endpoint</a></em> for the paragraphs_type--paragraphs_type resource type through the <em class="placeholder">paragraph_type</em> relationship. The relationship endpoint contains a <em class="placeholder"><a href="https://jsonapi.org/format/#document-resource-identifier-objects">resource identifier object</a></em> with the data for a particular relationship.
+  
+  Equivalent to GET /paragraph/text_media_box/{entity}/relationships/paragraph_type
+  """
+  paragraphTextMediaBoxRelationshipsParagraphType(
+    """The uuid of the paragraph text_media_box"""
+    entity: ID!
+
+    """include relation data"""
+    include: String
+  ): String
+}
