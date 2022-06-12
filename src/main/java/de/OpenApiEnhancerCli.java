@@ -5,14 +5,24 @@ import picocli.CommandLine;
 import java.util.concurrent.Callable;
 
 @picocli.CommandLine.Command(
-        name = "openapi-enhancer-cli",
-        description = "Downloads Openapi V2 Spec from Drupal and optimizes it."
+        name = "run",
+        description = "Downloads Openapi V2 Spec from Drupal and optimizes it.",
+        mixinStandardHelpOptions = true,
+        version = "openapi-enhancer-cli 1.0"
 )
 public class OpenApiEnhancerCli implements Callable<Integer> {
+    @CommandLine.Option(names = {"-i", "--inputSpec"})
+    private String inputSpec;
+
+    @CommandLine.Option(names = {"-u", "--user"})
+    private String username;
+    @CommandLine.Option(names = {"-p", "--password"})
+    private String password;
 
     @Override
     public Integer call() throws Exception {
-        OpenApiEnhancer.processOpenApiSpec("", "openapi_out.json", "", "");
+        System.out.println(username);
+        OpenApiEnhancer.processOpenApiSpec(inputSpec, "openapi_out.json", username, password);
 
         return 0;
     }

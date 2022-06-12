@@ -119,7 +119,7 @@ public class OpenApiEnhancer {
 
         CloseableHttpResponse response = httpClient.execute(httpGet);
         if(response.getStatusLine().getStatusCode()!=200){
-            throw new IOException("Cannot read inputspec from: " + inputSpec + "\nwith statuscode: " + response.getStatusLine().getStatusCode());
+            throw new IOException("Cannot read inputspec from: " + inputSpec + "\nstatuscode: " + response.getStatusLine().getStatusCode());
         }
         final HttpEntity entity = response.getEntity();
         return entity.getContent();
