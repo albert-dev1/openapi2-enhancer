@@ -1,6 +1,8 @@
 package de;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHeaders;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
@@ -15,6 +17,9 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -24,14 +29,14 @@ public class OpenApiEnhancer {
 
     public static final String DATA_SUFFIX = "--data";
 
-    static void processOpenApiSpec(String inputSpec, String outputSpec) throws IOException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+    static void processOpenApiSpec(String inputSpec, String outputSpec, String user, String password) throws IOException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
         if (inputSpec == null) {
             throw new NullPointerException("No inputSpec file was provided");
         }
 
 
         System.out.println("Reading inputSpec from: " + inputSpec);
-        InputStream is = inputSpec.startsWith("http") ? getInputStreamREST(inputSpec) : new FileInputStream(inputSpec);
+        InputStream is = inputSpec.startsWith("http") ? getInputStreamREST(inputSpec, user, password) : Files.newInputStream(Paths.get(inputSpec));
 
         if (is == null) {
             throw new NullPointerException("Cannot load inputSpec");
@@ -98,15 +103,24 @@ public class OpenApiEnhancer {
         });
     }
 
-    private static InputStream getInputStreamREST(String inputSpec) throws IOException, NoSuchAlgorithmException, KeyManagementException, KeyStoreException {
-            SSLContext sslContext = new SSLContextBuilder()
-                    .loadTrustMaterial(null, (certificate, authType) -> true).build();
-            CloseableHttpClient httpClient = HttpClients.custom().setSSLContext(sslContext)
-                    .setSSLHostnameVerifier(new NoopHostnameVerifier())
-                    .build();
+    private static InputStream getInputStreamREST(String inputSpec, String user, String password) throws IOException, NoSuchAlgorithmException, KeyManagementException, KeyStoreException {
+        SSLContext sslContext = new SSLContextBuilder()
+                .loadTrustMaterial(null, (certificate, authType) -> true).build();
+        CloseableHttpClient httpClient = HttpClients.custom().setSSLContext(sslContext)
+                .setSSLHostnameVerifier(new NoopHostnameVerifier())
+                .build();
 
         HttpGet httpGet = new HttpGet(inputSpec);
+
+        if(StringUtils.isNotBlank(user) && StringUtils.isNotBlank(password)) {
+            String auth = String.format("%s:%s", user, password);
+            httpGet.addHeader(HttpHeaders.AUTHORIZATION, "Basic " + Base64.getEncoder().encodeToString(auth.getBytes(StandardCharsets.UTF_8)));
+        }
+
         CloseableHttpResponse response = httpClient.execute(httpGet);
+        if(response.getStatusLine().getStatusCode()!=200){
+            throw new IOException("Cannot read inputspec from: " + inputSpec + "\nwith statuscode: " + response.getStatusLine().getStatusCode());
+        }
         final HttpEntity entity = response.getEntity();
         return entity.getContent();
         //return new URL(inputSpec).openStream();

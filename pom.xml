@@ -11,7 +11,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
     </properties>
-    <packaging>maven-plugin</packaging>
+    <packaging>jar</packaging>
     <name>Open API V2 Spec Enhancer</name>
 
     <dependencies>
@@ -47,6 +47,11 @@
             <artifactId>maven-project</artifactId>
             <version>2.2.1</version>
         </dependency>
+        <dependency>
+            <groupId>info.picocli</groupId>
+            <artifactId>picocli</artifactId>
+            <version>4.6.3</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -56,31 +61,27 @@
                 <artifactId>maven-plugin-plugin</artifactId>
                 <version>3.6.4</version>
             </plugin>
+
             <plugin>
-                <groupId>org.openapitools</groupId>
-                <artifactId>openapi-generator-maven-plugin</artifactId>
-                <!-- RELEASE_VERSION -->
-                <version>5.4.0</version>
-                <!-- /RELEASE_VERSION -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appassembler-maven-plugin</artifactId>
+                <version>1.10</version>
                 <executions>
                     <execution>
-                        <phase>generate-sources</phase>
+                        <phase>package</phase>
                         <goals>
-                            <goal>generate</goal>
+                            <goal>assemble</goal>
                         </goals>
-                        <configuration>
-                            <inputSpec>openapi_out.json</inputSpec>
-                            <generatorName>java</generatorName>
-                            <output>../openapitest</output>
-                            <skipValidateSpec>false</skipValidateSpec>
-                            <strictSpec>false</strictSpec>
-                            <additionalProperties>true</additionalProperties>
-                            <configOptions>
-                                <artifactVersion>1.1.1</artifactVersion>
-                            </configOptions>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <programs>
+                        <program>
+                            <mainClass>de.OpenApiEnhancerCli</mainClass>
+                            <id>openapi-enhancer-cli</id>
+                        </program>
+                    </programs>
+                </configuration>
             </plugin>
         </plugins>
     </build>

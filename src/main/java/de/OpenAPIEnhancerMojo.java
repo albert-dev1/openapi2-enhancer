@@ -21,9 +21,14 @@ public class OpenAPIEnhancerMojo extends AbstractMojo {
     @Parameter(property = "outputSpec", defaultValue = "openapi_out.json")
     String outputSpec;
 
+    @Parameter(property = "user")
+    String user;
+
+    @Parameter(property = "password")
+    String password;
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
-            OpenApiEnhancer.processOpenApiSpec(inputSpec, outputSpec);
+            OpenApiEnhancer.processOpenApiSpec(inputSpec, outputSpec, user, password);
         } catch (IOException | NoSuchAlgorithmException | KeyStoreException | KeyManagementException e) {
             e.printStackTrace();
         }
