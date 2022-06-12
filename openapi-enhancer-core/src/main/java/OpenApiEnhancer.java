@@ -1,5 +1,3 @@
-package de;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
@@ -13,7 +11,6 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import javax.net.ssl.SSLContext;
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,8 +1,4 @@
-package de;
-
 import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -26,7 +22,7 @@ public class OpenAPIEnhancerMojo extends AbstractMojo {
 
     @Parameter(property = "password")
     String password;
-    public void execute() throws MojoExecutionException, MojoFailureException {
+    public void execute() {
         try {
             OpenApiEnhancer.processOpenApiSpec(inputSpec, outputSpec, user, password);
         } catch (IOException | NoSuchAlgorithmException | KeyStoreException | KeyManagementException e) {

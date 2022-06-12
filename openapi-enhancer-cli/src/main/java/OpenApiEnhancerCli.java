@@ -1,5 +1,3 @@
-package de;
-
 import picocli.CommandLine;
 
 import java.util.concurrent.Callable;
@@ -21,7 +19,6 @@ public class OpenApiEnhancerCli implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        System.out.println(username);
         OpenApiEnhancer.processOpenApiSpec(inputSpec, "openapi_out.json", username, password);
 
         return 0;
