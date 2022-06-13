@@ -12,15 +12,18 @@ public class OpenApiEnhancerCli implements Callable<Integer> {
     @CommandLine.Option(names = {"-i", "--inputSpec"})
     private String inputSpec;
 
+    @CommandLine.Option(names = {"-o", "--outputSpec"})
+    private String outputSpec;
+
     @CommandLine.Option(names = {"-u", "--user"})
     private String username;
+
     @CommandLine.Option(names = {"-p", "--password"})
     private String password;
 
     @Override
     public Integer call() throws Exception {
-        OpenApiEnhancer.processOpenApiSpec(inputSpec, "openapi_out.json", username, password);
-
+        OpenApiEnhancer.processOpenApiSpec(inputSpec, outputSpec, username, password);
         return 0;
     }
 
