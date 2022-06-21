@@ -58,7 +58,9 @@ public class OpenApiEnhancer {
         String jsonStr = object.toString(2)
                 .replace("language_reference", "string")
                 .replace("\\/", "/")
-                .replace("/properties/data", DATA_SUFFIX);
+                .replace("/properties/data", DATA_SUFFIX)
+                .replace("\"type\": \"link_url\"", " \"type\": \"string\"")
+                .replace("\"type\": \"uri\"", " \"type\": \"string\"");
 
         try {
             System.out.println("Writing outputSpec to: " + outputSpec);
