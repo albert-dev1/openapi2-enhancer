@@ -54,6 +54,8 @@ public class OpenApiEnhancer {
         correctDefinitions(object.getJSONObject("definitions"));
         System.out.println("Correcting Timestamp Parse Error");
         correctTimestamps(object);
+        System.out.println("Correcting langcode types");
+        correctLangcode(object);
 
         String jsonStr = object.toString(2)
                 .replace("language_reference", "string")
@@ -83,6 +85,24 @@ public class OpenApiEnhancer {
                 correctTimestamps((JSONObject) jsonObject.get(key));
             }
         }
+    }
+
+    private static void correctLangcode(JSONObject jsonObject) {
+        String jsonKey = "langcode";
+        Map<String, JSONObject> datas = new HashMap<>();
+
+        for (String key : jsonObject.keySet()) {
+            if (key.equals(jsonKey)) {
+                datas.put(key, jsonObject.getJSONObject(key));
+            } else if (jsonObject.get(key) instanceof JSONObject) {
+                correctLangcode((JSONObject) jsonObject.get(key));
+            }
+        }
+
+        datas.forEach((key, value) -> {
+            jsonObject.remove("langcode");
+            jsonObject.put("langcode", new JSONObject("{\"type\":\"string\",\"title\":\"Language\"}"));
+        });
     }
 
     private static void correctDefinitions(JSONObject jsonObject) {
@@ -122,7 +142,6 @@ public class OpenApiEnhancer {
         }
         final HttpEntity entity = response.getEntity();
         return entity.getContent();
-        //return new URL(inputSpec).openStream();
     }
 
 
