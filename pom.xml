@@ -6,11 +6,11 @@
 
     <groupId>de.ba.cms</groupId>
     <artifactId>openapi-v2-enhancer</artifactId>
-    <version>1.5</version>
+    <version>1.6</version>
     <properties>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
-        <openapi-enhancer-version>1.5</openapi-enhancer-version>
+        <openapi-enhancer-version>1.6</openapi-enhancer-version>
     </properties>
     <packaging>pom</packaging>
     <name>Open API V2 Spec Enhancer</name>

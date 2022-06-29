@@ -7,7 +7,7 @@
     <parent>
         <artifactId>openapi-v2-enhancer</artifactId>
         <groupId>de.ba.cms</groupId>
-        <version>1.5</version>
+        <version>1.6</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>openapi-enhancer-cli</artifactId>

@@ -56,13 +56,14 @@ public class OpenApiEnhancer {
         correctTimestamps(object);
         System.out.println("Correcting langcode types");
         correctLangcode(object);
+        System.out.println("Correcting uri types");
+        correctUriType(object);
 
         String jsonStr = object.toString(2)
                 .replace("language_reference", "string")
                 .replace("\\/", "/")
                 .replace("/properties/data", DATA_SUFFIX)
-                .replace("\"type\": \"link_url\"", " \"type\": \"string\"")
-                .replace("\"type\": \"uri\"", " \"type\": \"string\"");
+                .replace("\"type\": \"link_url\"", " \"type\": \"string\"");
 
         try {
             System.out.println("Writing outputSpec to: " + outputSpec);
@@ -83,6 +84,28 @@ public class OpenApiEnhancer {
                 jsonObject.put("type", "string");
             } else if (jsonObject.get(key) instanceof JSONObject) {
                 correctTimestamps((JSONObject) jsonObject.get(key));
+            }
+        }
+    }
+
+    private static void correctUriType(JSONObject jsonObject) {
+        for (String key : jsonObject.keySet()) {
+            if ( key.equals("value")) {
+                JSONObject uriJsonObject = jsonObject.getJSONObject(key);
+                if (uriJsonObject.has("type") && "uri".equals(uriJsonObject.get("type"))) {
+                    uriJsonObject.put("type", "string");
+                }
+
+            } else if( key.equals("uri")) {
+                JSONObject uriJsonObject = jsonObject.getJSONObject(key);
+                if (uriJsonObject.has("title") && "URI".equals(uriJsonObject.getString("title"))) {
+                    uriJsonObject.put("title", "File URI");
+                    if (jsonObject.get(key) instanceof JSONObject) {
+                        correctUriType((JSONObject) jsonObject.get(key));
+                    }
+                }
+            } else if (jsonObject.get(key) instanceof JSONObject) {
+                correctUriType((JSONObject) jsonObject.get(key));
             }
         }
     }
