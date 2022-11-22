@@ -91,21 +91,31 @@ public class OpenApiEnhancer {
     }
 
     private static void addMetaToImageType(JSONObject jsonObject) {
-        String jsonKey = "media--image";
+        String jsonKey = "media--image--data";
         for (String key : jsonObject.keySet()) {
             if (key.equals(jsonKey)) {
-                JSONObject meta = jsonObject.getJSONObject("media--image").getJSONObject("properties").getJSONObject("meta");
-                meta.put(TITLE, "image metadata");
-                meta.put("properties", new JSONObject("{\n" +
-                        "            \"alt\": {\n" +
-                        "              \"type\": \"string\",\n" +
-                        "              \"title\": \"image alt\"\n" +
-                        "            },\n" +
-                        "            \"title\": {\n" +
-                        "              \"type\": \"string\",\n" +
-                        "              \"title\": \"image title\"\n" +
-                        "            }\n" +
-                        "          }"));
+                JSONObject meta = jsonObject.getJSONObject("media--image--data")
+                        .getJSONObject("properties")
+                        .getJSONObject("relationships")
+                        .getJSONObject("properties")
+                        .getJSONObject("field_media_image")
+                        .getJSONObject("properties")
+                        .getJSONObject("data")
+                        .getJSONObject("properties");
+                meta.put("meta", new JSONObject("{\n" +
+                        "\"type\": \"object\",\n" +
+                        "\"title\": \"image metadata \",\n" +
+                        "\"properties\": {\n" +
+                        "  \"alt\": {\n" +
+                        "    \"type\": \"string\",\n" +
+                        "    \"title\": \"image alt\"\n" +
+                        "  },\n" +
+                        "  \"title\": {\n" +
+                        "    \"type\": \"string\",\n" +
+                        "    \"title\": \"image title\"\n" +
+                        "  }\n" +
+                        "}\n" +
+                        "}"));
                 logger.log(Level.INFO, "MEEEETA:: {0}", key);
             } else if (jsonObject.get(key) instanceof JSONObject) {
                 addMetaToImageType((JSONObject) jsonObject.get(key));
@@ -164,6 +174,9 @@ public class OpenApiEnhancer {
                 JSONObject uriJsonObject = jsonObject.getJSONObject(key);
                 if (uriJsonObject.has(TITLE) && "URI".equals(uriJsonObject.getString(TITLE))) {
                     uriJsonObject.put(TITLE, "File URI");
+                    if(!uriJsonObject.getString("type").equals("object")) {
+                        uriJsonObject.put("type", STRING);
+                    }
                     if (jsonObject.get(key) instanceof JSONObject) {
                         correctUriType((JSONObject) jsonObject.get(key));
                     }

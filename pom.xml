@@ -6,14 +6,23 @@
 
     <groupId>de.ba.cms</groupId>
     <artifactId>openapi-v2-enhancer</artifactId>
-    <version>1.7</version>
+    <version>1.7.2</version>
     <properties>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
-        <openapi-enhancer-version>1.7</openapi-enhancer-version>
+        <openapi-enhancer-version>1.7.2</openapi-enhancer-version>
     </properties>
     <packaging>pom</packaging>
     <name>Open API V2 Spec Enhancer</name>
 
-
+    <distributionManagement>
+        <repository>
+            <id>nexus-develop</id>
+            <url>https://nexus.webapp.sdst.sbaintern.de/repository/hosted_maven_releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <url>https://nexus.webapp.sdst.sbaintern.de/repository/hosted_maven_snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
