@@ -10,7 +10,7 @@
     <properties>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
-        <openapi-enhancer-version>1.6</openapi-enhancer-version>
+        <openapi-enhancer-version>1.7</openapi-enhancer-version>
     </properties>
     <packaging>pom</packaging>
     <name>Open API V2 Spec Enhancer</name>
