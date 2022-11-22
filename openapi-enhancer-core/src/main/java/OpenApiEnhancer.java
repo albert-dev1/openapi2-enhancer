@@ -21,10 +21,20 @@ import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class OpenApiEnhancer {
 
     public static final String DATA_SUFFIX = "--data";
+    public static final String ARRAY = "array";
+    public static final String ITEMS = "items";
+    public static final String STRING = "string";
+    public static final String TITLE = "title";
+    public static final String LANGCODE = "langcode";
+    public static final Logger logger = Logger.getLogger("OpenApiEnhancer Core");
+
+    private OpenApiEnhancer(){}
 
     static void processOpenApiSpec(String inputSpec, String outputSpec, String user, String password) throws IOException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
         if (inputSpec == null) {
@@ -32,7 +42,7 @@ public class OpenApiEnhancer {
         }
 
 
-        System.out.println("Reading inputSpec from: " + inputSpec);
+        logger.log(Level.INFO, "Reading inputSpec from: {0}", inputSpec);
         InputStream is = inputSpec.startsWith("http") ? getInputStreamREST(inputSpec, user, password) : Files.newInputStream(Paths.get(inputSpec));
 
         if (is == null) {
@@ -44,44 +54,98 @@ public class OpenApiEnhancer {
 
         removeSecurityField(object);
         cleanPaths(object);
-        System.out.println("Updating parameter objects");
+        logger.log(Level.INFO, "Updating parameter objects");
         updateParameters(object);
-        System.out.println("Deleting empty require fields");
+        logger.log(Level.INFO, "Deleting empty require fields");
         deleteEmptyRequiredFields(object);
-        System.out.println("Adding include and filterpath query params");
+        logger.log(Level.INFO, "Adding include and filterpath query params");
         addIncludeAndFilterQueryParam(object);
-        System.out.println("Correcting definitions");
+        logger.log(Level.INFO, "Correcting definitions");
         correctDefinitions(object.getJSONObject("definitions"));
-        System.out.println("Correcting Timestamp Parse Error");
+        logger.log(Level.INFO, "Correcting Timestamp Parse Error");
         correctTimestamps(object);
-        System.out.println("Correcting langcode types");
+        logger.log(Level.INFO, "Correcting langcode types");
         correctLangcode(object);
-        System.out.println("Correcting uri types");
+        logger.log(Level.INFO, "Correcting uri types");
         correctUriType(object);
+        logger.log(Level.INFO, "Correcting custom breadcrumb schema");
+        correctBreadcrumbType(object);
+        logger.log(Level.INFO, "Add meta to image schema");
+        addMetaToImageType(object);
 
         String jsonStr = object.toString(2)
-                .replace("language_reference", "string")
+                .replace("language_reference", STRING)
                 .replace("\\/", "/")
                 .replace("/properties/data", DATA_SUFFIX)
                 .replace("\"type\": \"link_url\"", " \"type\": \"string\"");
 
-        try {
-            System.out.println("Writing outputSpec to: " + outputSpec);
-            FileWriter myWriter = new FileWriter(outputSpec);
+        try (FileWriter myWriter = new FileWriter(outputSpec)){
+            logger.log(Level.INFO, "Writing outputSpec to: {0}", outputSpec);
             myWriter.write(jsonStr);
-            myWriter.close();
         } catch (IOException e) {
-            System.out.println("Cannot write outputSpec.");
+            logger.log(Level.INFO, "Cannot write outputSpec.");
             e.printStackTrace();
         }
-        System.out.println("Done :)");
+
+        logger.log(Level.INFO, "Done :)");
+    }
+
+    private static void addMetaToImageType(JSONObject jsonObject) {
+        String jsonKey = "media--image";
+        for (String key : jsonObject.keySet()) {
+            if (key.equals(jsonKey)) {
+                JSONObject meta = jsonObject.getJSONObject("media--image").getJSONObject("properties").getJSONObject("meta");
+                meta.put(TITLE, "image metadata");
+                meta.put("properties", new JSONObject("{\n" +
+                        "            \"alt\": {\n" +
+                        "              \"type\": \"string\",\n" +
+                        "              \"title\": \"image alt\"\n" +
+                        "            },\n" +
+                        "            \"title\": {\n" +
+                        "              \"type\": \"string\",\n" +
+                        "              \"title\": \"image title\"\n" +
+                        "            }\n" +
+                        "          }"));
+                logger.log(Level.INFO, "MEEEETA:: {0}", key);
+            } else if (jsonObject.get(key) instanceof JSONObject) {
+                addMetaToImageType((JSONObject) jsonObject.get(key));
+            }
+        }
+    }
+
+    private static void correctBreadcrumbType(JSONObject jsonObject) {
+        String jsonKey = "breadcrumbs";
+        Map<String, JSONObject> datas = new HashMap<>();
+
+        for (String key : jsonObject.keySet()) {
+            if (key.equals(jsonKey)) {
+                datas.put(key, jsonObject.getJSONObject(key));
+            } else if (jsonObject.get(key) instanceof JSONObject) {
+                correctBreadcrumbType((JSONObject) jsonObject.get(key));
+            }
+        }
+
+        datas.forEach((key, value) -> {
+            JSONObject breadcrumbCurrentSchema = jsonObject.getJSONObject(jsonKey);
+
+            if (breadcrumbCurrentSchema.has("type") && breadcrumbCurrentSchema.get("type").equals(ARRAY)) {
+                return;
+            }
+
+            JSONObject breadcrumbCorrectedSchema = new JSONObject();
+            breadcrumbCorrectedSchema.put("type", ARRAY);
+            breadcrumbCorrectedSchema.put(ITEMS, breadcrumbCurrentSchema);
+
+            jsonObject.remove(jsonKey);
+            jsonObject.put(jsonKey, breadcrumbCorrectedSchema);
+        });
     }
 
     private static void correctTimestamps(JSONObject jsonObject) {
         String jsonKey = "format";
         for (String key : jsonObject.keySet()) {
             if (key.equals(jsonKey) && jsonObject.get(jsonKey) instanceof String && jsonObject.getString(jsonKey).equals("utc-millisec")) {
-                jsonObject.put("type", "string");
+                jsonObject.put("type", STRING);
             } else if (jsonObject.get(key) instanceof JSONObject) {
                 correctTimestamps((JSONObject) jsonObject.get(key));
             }
@@ -93,13 +157,13 @@ public class OpenApiEnhancer {
             if ( key.equals("value")) {
                 JSONObject uriJsonObject = jsonObject.getJSONObject(key);
                 if (uriJsonObject.has("type") && "uri".equals(uriJsonObject.get("type"))) {
-                    uriJsonObject.put("type", "string");
+                    uriJsonObject.put("type", STRING);
                 }
 
             } else if( key.equals("uri")) {
                 JSONObject uriJsonObject = jsonObject.getJSONObject(key);
-                if (uriJsonObject.has("title") && "URI".equals(uriJsonObject.getString("title"))) {
-                    uriJsonObject.put("title", "File URI");
+                if (uriJsonObject.has(TITLE) && "URI".equals(uriJsonObject.getString(TITLE))) {
+                    uriJsonObject.put(TITLE, "File URI");
                     if (jsonObject.get(key) instanceof JSONObject) {
                         correctUriType((JSONObject) jsonObject.get(key));
                     }
@@ -111,11 +175,10 @@ public class OpenApiEnhancer {
     }
 
     private static void correctLangcode(JSONObject jsonObject) {
-        String jsonKey = "langcode";
         Map<String, JSONObject> datas = new HashMap<>();
 
         for (String key : jsonObject.keySet()) {
-            if (key.equals(jsonKey)) {
+            if (key.equals(LANGCODE)) {
                 datas.put(key, jsonObject.getJSONObject(key));
             } else if (jsonObject.get(key) instanceof JSONObject) {
                 correctLangcode((JSONObject) jsonObject.get(key));
@@ -123,8 +186,8 @@ public class OpenApiEnhancer {
         }
 
         datas.forEach((key, value) -> {
-            jsonObject.remove("langcode");
-            jsonObject.put("langcode", new JSONObject("{\"type\":\"string\",\"title\":\"Language\"}"));
+            jsonObject.remove(LANGCODE);
+            jsonObject.put(LANGCODE, new JSONObject("{\"type\":\"string\",\"title\":\"Language\"}"));
         });
     }
 
@@ -169,7 +232,7 @@ public class OpenApiEnhancer {
 
 
     private static void removeSecurityField(JSONObject object) {
-        System.out.println("Removing security field");
+        logger.log(Level.INFO, "Removing security field");
         object.remove("security");
     }
 
@@ -214,8 +277,8 @@ public class OpenApiEnhancer {
             if (key.equals(jsonKey) ) {
                 jsonObject.getJSONArray(jsonKey).forEach( o -> {
                     JSONObject jo = (JSONObject) o;
-                    if(jo.get("type").equals("array") && !jo.has("items")){
-                        jo.put("items", new JSONObject("{\"type\":\"string\"}"));
+                    if(jo.get("type").equals(ARRAY) && !jo.has(ITEMS)){
+                        jo.put(ITEMS, new JSONObject("{\"type\":\"string\"}"));
                     }
                 });
             } else if (jsonObject.get(key) instanceof JSONObject) {
@@ -227,7 +290,7 @@ public class OpenApiEnhancer {
     }
 
     private static void cleanPaths(JSONObject object) {
-        System.out.println("Removing patch, post, delete paths");
+        logger.log(Level.INFO, "Removing patch, post, delete paths");
         JSONObject paths = object.getJSONObject("paths");
         Iterator<String> keys = paths.keys();
         List<String> removePaths = new ArrayList<>();
