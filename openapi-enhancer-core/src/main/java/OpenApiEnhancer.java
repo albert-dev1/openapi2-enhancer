@@ -134,7 +134,7 @@ public class OpenApiEnhancer {
                                 "              \"type\": \"object\",\n" +
                                 "              \"properties\": {\n" +
                                 "                \"href\": {\n" +
-                                "                  \"type\": \"object\"\n" +
+                                "                  \"type\": \"string\"\n" +
                                 "                }\n" +
                                 "              }\n" +
                                 "            }\n" +
