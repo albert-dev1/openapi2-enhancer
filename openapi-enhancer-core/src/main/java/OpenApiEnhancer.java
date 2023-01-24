@@ -102,21 +102,48 @@ public class OpenApiEnhancer {
                         .getJSONObject("properties")
                         .getJSONObject("data")
                         .getJSONObject("properties");
-                meta.put("meta", new JSONObject("{\n" +
-                        "\"type\": \"object\",\n" +
-                        "\"title\": \"image metadata \",\n" +
-                        "\"properties\": {\n" +
-                        "  \"alt\": {\n" +
-                        "    \"type\": \"string\",\n" +
-                        "    \"title\": \"image alt\"\n" +
-                        "  },\n" +
-                        "  \"title\": {\n" +
-                        "    \"type\": \"string\",\n" +
-                        "    \"title\": \"image title\"\n" +
-                        "  }\n" +
-                        "}\n" +
-                        "}"));
-                logger.log(Level.INFO, "MEEEETA:: {0}", key);
+                meta.put("meta", new JSONObject(
+                        "{\n" +
+                                "  \"type\": \"object\",\n" +
+                                "  \"title\": \"image metadata \",\n" +
+                                "  \"properties\": {\n" +
+                                "    \"alt\": {\n" +
+                                "      \"type\": \"string\",\n" +
+                                "      \"title\": \"image alt\"\n" +
+                                "    },\n" +
+                                "    \"title\": {\n" +
+                                "      \"type\": \"string\",\n" +
+                                "      \"title\": \"image title\"\n" +
+                                "    },\n" +
+                                "    \"width\": {\n" +
+                                "      \"type\": \"integer\",\n" +
+                                "      \"title\": \"image width\"\n" +
+                                "    },\n" +
+                                "    \"height\": {\n" +
+                                "      \"type\": \"integer\",\n" +
+                                "      \"title\": \"image height\"\n" +
+                                "    },\n" +
+                                "    \"imageDerivatives\": {\n" +
+                                "      \"type\": \"object\",\n" +
+                                "      \"title\": \"image derivatives\",\n" +
+                                "      \"properties\": {\n" +
+                                "        \"links\": {\n" +
+                                "          \"type\": \"object\",\n" +
+                                "          \"properties\": {\n" +
+                                "            \"webp\": {\n" +
+                                "              \"type\": \"object\",\n" +
+                                "              \"properties\": {\n" +
+                                "                \"href\": {\n" +
+                                "                  \"type\": \"object\"\n" +
+                                "                }\n" +
+                                "              }\n" +
+                                "            }\n" +
+                                "          }\n" +
+                                "        }\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  }\n" +
+                                "}"));
             } else if (jsonObject.get(key) instanceof JSONObject) {
                 addMetaToImageType((JSONObject) jsonObject.get(key));
             }
